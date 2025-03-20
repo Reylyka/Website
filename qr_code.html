@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Scan This QR Code to Proceed</h1>
+        <canvas id="qr-code"></canvas>
+        <p>Scan the QR code using your mobile device to access the system.</p>
+    </div>
+
+    <script>
+        const qr = new QRious({
+            element: document.getElementById('qr-code'),
+            value: window.location.origin + '/UserHomepage.html',
+            size: 250
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan ID</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Scan Your ID</h1>
+        <input type="file" accept="image/*" id="scanInput">
+        <div class="ocr-output">
+            <label>Extracted Name:</label>
+            <input type="text" id="nameField">
+            <label>Extracted ID Number:</label>
+            <input type="text" id="idNumberField">
+        </div>
+        <label>
+            <input type="checkbox" id="termsCheck"> I agree to the Terms and Conditions
+        </label>
+        <button id="nextButton" disabled>Proceed to Questionnaire</button>
+    </div>
+
+    <script>
+        document.getElementById('termsCheck').addEventListener('change', function() {
+            document.getElementById('nextButton').disabled = !this.checked;
+        });
+
+        document.getElementById('nextButton').addEventListener('click', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userType = urlParams.get('type');
+            window.location.href = `${userType}.html`;
+        });
+    </script>
+</body>
+</html>

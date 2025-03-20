@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Selection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your User Category</h1>
+        <div class="user-buttons">
+            <button onclick="redirectToScanner('pregnant')">Pregnant</button>
+            <button onclick="redirectToScanner('senior')">Senior</button>
+            <button onclick="redirectToScanner('pwd')">PWD</button>
+            <button onclick="redirectToScanner('infant')">Infant</button>
+            <button onclick="redirectToScanner('resident')">Resident</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToScanner(userType) {
+            window.location.href = `Scanner.html?type=${userType}`;
+        }
+    </script>
+</body>
+</html>

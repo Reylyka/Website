@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnant Questionnaire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pregnant Questionnaire</h1>
+        <label>How many months pregnant are you?</label>
+        <input type="number" min="1" max="9">
+        <label>Do you have pregnancy complications?</label>
+        <textarea></textarea>
+        <button onclick="submitForm()">Submit</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            alert("Form submitted successfully!");
+            window.location.href = "UserHomepage.html";
+        }
+    </script>
+</body>
+</html>
