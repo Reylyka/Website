@@ -15,12 +15,22 @@
     </div>
 
     <script>
-        // Generate the QR Code with the correct URL
+        // Generate the QR Code
         const qr = new QRious({
             element: document.getElementById('qr-code'),
-            value: "https://reylyka.github.io/Website/UserHomepage.html", // Manually set the URL
+            value: "https://reylyka.github.io/Website/UserHomepage.html", // Redirects to UserHomepage after scanning
             size: 250
         });
+
+        // Automatically redirect after scanning
+        function checkScan() {
+            // Simulate QR scan detection (User clicking the QR to simulate scan completion)
+            document.getElementById('qr-code').addEventListener('click', function() {
+                window.location.href = "UserHomepage.html";
+            });
+        }
+
+        checkScan(); // Call function to enable redirection on scan
     </script>
 </body>
 </html>
