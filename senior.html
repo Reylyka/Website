@@ -3,17 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Citizen Questionnaire</title>
+    <title>Health Questionnaire</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Senior Citizen Questionnaire</h1>
+        
+
+        <!-- Terms and Conditions Box -->
+        <div class="terms-container">
+            <h3>Terms and Conditions</h3>
+            <p>Please read the following terms and conditions carefully before submitting your information:</p>
+            <ul>
+                <li>Your personal information will be used for healthcare purposes only.</li>
+                <li>The information you provide is confidential and will not be shared with third parties without your consent.</li>
+                <li>By submitting this form, you agree that the details you provide are accurate to the best of your knowledge.</li>
+                <li>You must agree to the terms before proceeding with the submission.</li>
+            </ul>
+        </div>
+
+        <!-- Add space before Question 1 -->
+        <br>
+
+        <!-- Question 1 -->
+        <label>What is your name and date of birth?</label>
+        <input type="text" id="fullName" placeholder="Enter your full name">
+        <input type="date" id="dob">
+        <br><br>
+
+        <!-- Question 2 -->
+        <label>Do you have any existing health conditions (e.g., hypertension, diabetes, arthritis)?</label>
+        <textarea id="existingConditions" placeholder="Please list any existing health conditions"></textarea>
+        <br><br>
+
+        <!-- Question 3 -->
+        <label>Are you currently taking any medications or supplements? If so, what are they?</label>
+        <textarea id="medications" placeholder="Please list any medications or supplements"></textarea>
+        <br><br>
+
+        <!-- Question 4 -->
+        <label>Do you have any allergies to medications or foods?</label>
+        <textarea id="allergies" placeholder="Please list any allergies"></textarea>
+        <br><br>
+
+        <!-- Question 5 -->
+        <label>Are you physically active? What kind of exercises or activities do you engage in?</label>
+        <textarea id="physicalActivity" placeholder="Please describe your physical activities"></textarea>
+        <br><br>
+
+        <!-- Question 6 -->
+        <label>Do you smoke or drink alcohol? If yes, how often?</label>
+        <textarea id="smokingAlcohol" placeholder="Please specify how often you smoke or drink alcohol"></textarea>
+        <br><br>
+
+        <!-- Question 7 -->
+        <label>How are you feeling today? Are you experiencing any discomfort or pain?</label>
+        <textarea id="discomfort" placeholder="Please describe any discomfort or pain"></textarea>
+        <br><br>
+
+        <!-- Question 8 -->
+        <label>Have you had any recent illnesses (e.g., cold, fever, flu)?</label>
+        <textarea id="recentIllness" placeholder="Please describe any recent illnesses"></textarea>
+        <br><br>
+
+        <!-- Question 9 -->
+        <label>Are you having trouble sleeping or feeling more fatigued than usual?</label>
+        <textarea id="sleepFatigue" placeholder="Please provide details about your sleeping and fatigue issues"></textarea>
+        <br><br>
+
+        <!-- Question 10 -->
         <label>Do you have any medical conditions?</label>
-        <textarea></textarea>
+        <textarea id="medicalConditions" placeholder="Please provide details of any medical conditions"></textarea>
+        <br><br>
+
+        <!-- Question 11 -->
         <label>Are you taking maintenance medications?</label>
-        <textarea></textarea>
-        <button onclick="submitForm()">Submit</button>
+        <textarea id="maintenanceMedications" placeholder="Please list any maintenance medications"></textarea>
+        <br><br>
+
+        <!-- Terms and Conditions Checkbox -->
+        <label>
+            <input type="checkbox" id="termsCheckbox"> I agree to the <a href="terms_and_conditions.html" target="_blank">Terms and Conditions</a>.
+        </label>
+        <br><br>
+
+        <!-- Submit Button -->
+        <button id="submitButton" onclick="submitForm()">Submit</button>
     </div>
+
+    <script>
+        // Function to enable the Submit button if the checkbox is checked
+        document.getElementById("termsCheckbox").addEventListener("change", function() {
+            const submitButton = document.getElementById("submitButton");
+            submitButton.disabled = !this.checked || !validateForm();
+        });
+
+        // Function to validate that all fields have been filled out
+        function validateForm() {
+            const fields = [
+                "fullName",
+                "dob",
+                "existingConditions",
+                "medications",
+                "allergies",
+                "physicalActivity",
+                "smokingAlcohol",
+                "discomfort",
+                "recentIllness",
+                "sleepFatigue",
+                "medicalConditions",
+                "maintenanceMedications"
+            ];
+
+            // Check each field
+            for (let id of fields) {
+                const field = document.getElementById(id);
+                if (field.value.trim() === "") {
+                    return false; // Return false if any field is empty
+                }
+            }
+            return true; // Return true if all fields are filled
+        }
+
+        // Function to handle form submission
+        function submitForm() {
+            const fields = [
+                "fullName",
+                "dob",
+                "existingConditions",
+                "medications",
+                "allergies",
+                "physicalActivity",
+                "smokingAlcohol",
+                "discomfort",
+                "recentIllness",
+                "sleepFatigue",
+                "medicalConditions",
+                "maintenanceMedications"
+            ];
+
+            let allFieldsFilled = true;
+
+            // Validate each field
+            fields.forEach(id => {
+                const field = document.getElementById(id);
+                if (field.value.trim() === "") {
+                    allFieldsFilled = false;
+                }
+            });
+
+            // If any fields are missing, alert the user and prevent form submission
+            if (!allFieldsFilled) {
+                alert("Please fill out all fields.");
+            } 
+            // If checkbox is not checked, prompt the user to agree to Terms and Conditions
+            else if (!document.getElementById("termsCheckbox").checked) {
+                alert("You must agree to the Terms and Conditions to proceed.");
+            }
+            else {
+                alert("Form submitted successfully!");
+                window.location.href = "UserHomepage.html";
+            }
+        }
+    </script>
+
+    <style>
+        /* Style for the Terms and Conditions Box */
+        .terms-container {
+            border: 2px solid #000;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .terms-container h3 {
+            margin-top: 0;
+        }
+
+        .terms-container p {
+            margin-bottom: 10px;
+        }
+
+        .terms-container ul {
+            margin-left: 20px;
+        }
+
+        .terms-container label {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .terms-container a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        /* Style for the Submit Button */
+        #submitButton {
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Make button stretch across the form */
+            margin-top: 20px;
+        }
+
+        /* Hover effect for the Submit Button */
+        #submitButton:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        /* Disabled Submit Button */
+        #submitButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
 </body>
 </html>
