@@ -1,37 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan ID</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scan ID</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Scan Your ID</h1>
-        <input type="file" accept="image/*" id="scanInput">
-        <div class="ocr-output">
-            <label>Extracted Name:</label>
-            <input type="text" id="nameField">
-            <label>Extracted ID Number:</label>
-            <input type="text" id="idNumberField">
-        </div>
-        <label>
-            <input type="checkbox" id="termsCheck"> I agree to the Terms and Conditions
-        </label>
-        <button id="nextButton" disabled>Proceed to Questionnaire</button>
+  <div class="container">
+    <h1>Scan Your ID</h1>
+    <input type="file" accept="image/*" id="scanInput" />
+
+    <div id="idTypeSection">
+      <label for="idType">Select ID Type:</label>
+      <select id="idType">
+        <option value="">-- Select ID Type --</option>
+        <option value="passport">Passport</option>
+        <option value="driver_license">Driver's License</option>
+        <option value="student_id">Student ID</option>
+        <option value="national_id">National ID</option>
+        <option value="other">Other</option>
+      </select>
+
+      <div id="otherIdContainer" style="display: none;">
+        <label for="otherIdInput">Please specify your ID type:</label>
+        <input type="text" id="otherIdInput" placeholder="Enter ID type..." />
+      </div>
     </div>
 
-    <script>
-        document.getElementById('termsCheck').addEventListener('change', function() {
-            document.getElementById('nextButton').disabled = !this.checked;
-        });
+    <div class="ocr-output">
+      <label for="nameField">Extracted Name:</label>
+      <input type="text" id="nameField" placeholder="Enter name..." />
 
-        document.getElementById('nextButton').addEventListener('click', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userType = urlParams.get('type');
-            window.location.href = `${userType}.html`;
-        });
-    </script>
+      <label for="idNumberField">Extracted ID Number:</label>
+      <input type="text" id="idNumberField" placeholder="Enter ID number..." />
+    </div>
+
+    <label>
+      <input type="checkbox" id="termsCheck" /> I agree to the Terms and Conditions
+    </label>
+
+    <button id="nextButton" disabled>Proceed to Questionnaire</button>
+  </div>
+
+  <script>
+    const nameField = document.getElementById("nameField");
+    const idNumberField = document.getElementById("idNumberField");
+    const idTypeSelect = document.getElementById("idType");
+    const otherIdContainer = document.getElementById("otherIdContainer");
+    const otherIdInput = document.getElementById("otherIdInput");
+    const termsCheck = document.getElementById("termsCheck");
+    const nextButton = document.getElementById("nextButton");
+
+    function isFormComplete() {
+      const nameFilled = nameField.value.trim() !== "";
+      const idFilled = idNumberField.value.trim() !== "";
+      const idType = idTypeSelect.value;
+      const otherIdFilled = idType === "other" ? otherIdInput.value.trim() !== "" : true;
+      return nameFilled && idFilled && idType !== "" && otherIdFilled;
+    }
+
+    function validateFields() {
+      otherIdContainer.style.display = idTypeSelect.value === "other" ? "block" : "none";
+      const formComplete = isFormComplete();
+      if (!formComplete) {
+        termsCheck.checked = false;
+        nextButton.disabled = true;
+      } else {
+        nextButton.disabled = !termsCheck.checked;
+      }
+    }
+
+    nameField.addEventListener("input", validateFields);
+    idNumberField.addEventListener("input", validateFields);
+    idTypeSelect.addEventListener("change", validateFields);
+    otherIdInput.addEventListener("input", validateFields);
+
+    termsCheck.addEventListener("click", function (e) {
+      if (!isFormComplete()) {
+        e.preventDefault();
+        alert("Please fill in all required fields before agreeing to the Terms and Conditions.");
+      } else {
+        nextButton.disabled = !termsCheck.checked;
+      }
+    });
+
+    nextButton.addEventListener("click", function () {
+      if (!isFormComplete()) {
+        alert("Please complete all fields before proceeding.");
+        return;
+      }
+
+      if (!termsCheck.checked) {
+        alert("You must agree to the Terms and Conditions before continuing.");
+        return;
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const userType = urlParams.get("type");
+      window.location.href = `${userType}.html`;
+    });
+  </script>
+
+  <!-- Styles placed at the end as requested -->
+  <style>
+    /* Style ONLY for the ID Type Selection section */
+    #idTypeSection {
+      background-color: #f0f8ff;
+      padding: 15px;
+      border: 1px solid #ccc;
+      margin: 15px 0;
+      border-radius: 8px;
+    }
+
+    #idTypeSection label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #idType,
+    #otherIdInput {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    #otherIdContainer {
+      margin-top: 10px;
+    }
+  </style>
 </body>
 </html>
