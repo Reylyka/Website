@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         
-        <!-- Terms and Conditions Box -->
+        
         <div class="terms-container">
             <h3>Terms and Conditions</h3>
             <p>Please read the following terms and conditions carefully before submitting your information:</p>
@@ -21,52 +21,52 @@
             </ul>
         </div>
 
-        <!-- Add space before Question 1 -->
+        
         <br>
 
-        <!-- Question 1 -->
+      
         <label>What is the name of your baby and date of birth?</label>
         <input type="text" id="babyName" placeholder="Enter your baby’s name">
         <input type="date" id="babyDob">
         <br><br>
 
-        <!-- Question 2 -->
+        
         <label>Is this your baby’s first immunization visit?</label>
         <textarea id="firstImmunization" placeholder="Please provide details"></textarea>
         <br><br>
 
-        <!-- Question 3 -->
+       
         <label>Have there been any previous reactions to vaccines (if applicable)?</label>
         <textarea id="previousReactions" placeholder="Please provide details if any"></textarea>
         <br><br>
 
-        <!-- Question 4 -->
+        
         <label>Has your baby had any recent illnesses (fever, cold, cough)?</label>
         <textarea id="recentIllnesses" placeholder="Please provide details if any"></textarea>
         <br><br>
 
-        <!-- Question 5 -->
+       
         <label>Do you have your baby’s immunization card with you?</label>
         <textarea id="immunizationCard" placeholder="Please answer yes or no"></textarea>
         <br><br>
 
-        <!-- Question 6 -->
+        
         <label>Do you have any concerns about vaccines or their side effects?</label>
         <textarea id="vaccineConcerns" placeholder="Please describe any concerns"></textarea>
         <br><br>
 
-        <!-- Terms and Conditions Checkbox -->
+        
         <label>
             <input type="checkbox" id="termsCheckbox"> I agree to the <a href="terms_and_conditions.html" target="_blank">Terms and Conditions</a>.
         </label>
         <br><br>
 
-        <!-- Submit Button -->
+       
         <button id="submitButton" onclick="submitForm()">Submit</button>
     </div>
 
     <script>
-        // Function to enable the Submit button if the checkbox is checked
+       
         document.getElementById("termsCheckbox").addEventListener("change", function() {
             const submitButton = document.getElementById("submitButton");
             submitButton.disabled = !this.checked || !validateForm();
